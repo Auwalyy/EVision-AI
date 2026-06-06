@@ -1,14 +1,19 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Map, Brain, Settings, Zap } from 'lucide-react';
+import { LayoutDashboard, Map, Brain, Settings, Zap, ListChecks, BarChart2, UserCircle } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/map', icon: Map, label: 'Map' },
+  { to: '/recommendations', icon: ListChecks, label: 'Recommendations' },
   { to: '/insights', icon: Brain, label: 'AI Insights' },
+  { to: '/analytics', icon: BarChart2, label: 'Analytics' },
   { to: '/admin', icon: Settings, label: 'Admin' },
 ];
 
 export default function Sidebar() {
+  const { user } = useAuth();
+
   return (
     <aside className="w-64 min-h-screen bg-ev-dark-card border-r border-ev-dark-border flex flex-col">
       {/* Logo */}
@@ -45,9 +50,22 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      {/* Footer tag */}
+      {/* Profile link */}
       <div className="p-4 border-t border-ev-dark-border">
-        <p className="text-xs text-ev-gray text-center">Nigeria EV Planning Platform</p>
+        <NavLink
+          to="/profile"
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 text-sm ${
+              isActive ? 'text-ev-blue' : 'text-ev-gray hover:text-white'
+            }`
+          }
+        >
+          <UserCircle size={18} />
+          <div className="min-w-0">
+            <p className="font-medium truncate">{user?.fullname || 'Profile'}</p>
+            <p className="text-xs text-ev-gray/60 capitalize truncate">{user?.role}</p>
+          </div>
+        </NavLink>
       </div>
     </aside>
   );

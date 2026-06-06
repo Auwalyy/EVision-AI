@@ -60,6 +60,41 @@ const locations = [
   { name: 'Tarauni', city: 'Kano', state: 'Kano', latitude: 12.0100, longitude: 8.5700, populationDensity: 82, trafficVolume: 62, commercialScore: 58, evScore: 20, hasExistingStation: false, routeCoverage: 5 },
   { name: 'Dala', city: 'Kano', state: 'Kano', latitude: 12.0350, longitude: 8.4800, populationDensity: 78, trafficVolume: 60, commercialScore: 60, evScore: 22, hasExistingStation: false, routeCoverage: 6 },
   { name: 'Hotoro', city: 'Kano', state: 'Kano', latitude: 12.0500, longitude: 8.5600, populationDensity: 72, trafficVolume: 58, commercialScore: 55, evScore: 18, hasExistingStation: false, routeCoverage: 4 },
+
+  // ── IBADAN ─────────────────────────────────────────────────────────────────
+  { name: 'Bodija', city: 'Ibadan', state: 'Oyo', latitude: 7.4167, longitude: 3.9000, populationDensity: 82, trafficVolume: 75, commercialScore: 78, evScore: 38, hasExistingStation: false, routeCoverage: 18, nearbyPOIs: ['Market', 'Estates'] },
+  { name: 'Challenge', city: 'Ibadan', state: 'Oyo', latitude: 7.3775, longitude: 3.9470, populationDensity: 88, trafficVolume: 82, commercialScore: 80, evScore: 35, hasExistingStation: false, routeCoverage: 12 },
+  { name: 'UI Road', city: 'Ibadan', state: 'Oyo', latitude: 7.4460, longitude: 3.9020, populationDensity: 70, trafficVolume: 68, commercialScore: 65, evScore: 42, hasExistingStation: false, routeCoverage: 20, nearbyPOIs: ['University', 'Teaching Hospital'] },
+  { name: 'Dugbe', city: 'Ibadan', state: 'Oyo', latitude: 7.3822, longitude: 3.9068, populationDensity: 85, trafficVolume: 88, commercialScore: 90, evScore: 32, hasExistingStation: true, stationType: 'level1', routeCoverage: 25, nearbyPOIs: ['CBD', 'Banks'] },
+  { name: 'Ring Road', city: 'Ibadan', state: 'Oyo', latitude: 7.3900, longitude: 3.9100, populationDensity: 78, trafficVolume: 80, commercialScore: 75, evScore: 30, hasExistingStation: false, routeCoverage: 15 },
+
+  // ── KADUNA ─────────────────────────────────────────────────────────────────
+  { name: 'Ungwan Rimi', city: 'Kaduna', state: 'Kaduna', latitude: 10.5222, longitude: 7.4383, populationDensity: 72, trafficVolume: 70, commercialScore: 78, evScore: 35, hasExistingStation: false, routeCoverage: 15, nearbyPOIs: ['GRA', 'Government Offices'] },
+  { name: 'Kawo', city: 'Kaduna', state: 'Kaduna', latitude: 10.5500, longitude: 7.4500, populationDensity: 80, trafficVolume: 72, commercialScore: 65, evScore: 28, hasExistingStation: false, routeCoverage: 10 },
+  { name: 'Barnawa', city: 'Kaduna', state: 'Kaduna', latitude: 10.4800, longitude: 7.4200, populationDensity: 75, trafficVolume: 65, commercialScore: 60, evScore: 25, hasExistingStation: false, routeCoverage: 8 },
+  { name: 'Kaduna CBD', city: 'Kaduna', state: 'Kaduna', latitude: 10.5205, longitude: 7.4415, populationDensity: 65, trafficVolume: 80, commercialScore: 88, evScore: 40, hasExistingStation: true, stationType: 'level2', routeCoverage: 30, nearbyPOIs: ['Markets', 'Banks'] },
+
+  // ── ENUGU ──────────────────────────────────────────────────────────────────
+  { name: 'GRA Enugu', city: 'Enugu', state: 'Enugu', latitude: 6.4483, longitude: 7.5134, populationDensity: 60, trafficVolume: 65, commercialScore: 75, evScore: 42, hasExistingStation: false, routeCoverage: 22, nearbyPOIs: ['Government Buildings', 'Estates'] },
+  { name: 'Ogui Road', city: 'Enugu', state: 'Enugu', latitude: 6.4600, longitude: 7.5200, populationDensity: 75, trafficVolume: 72, commercialScore: 70, evScore: 35, hasExistingStation: false, routeCoverage: 14 },
+  { name: 'Independence Layout', city: 'Enugu', state: 'Enugu', latitude: 6.4400, longitude: 7.5000, populationDensity: 65, trafficVolume: 68, commercialScore: 72, evScore: 40, hasExistingStation: false, routeCoverage: 18 },
+  { name: 'Enugu CBD', city: 'Enugu', state: 'Enugu', latitude: 6.4527, longitude: 7.5107, populationDensity: 58, trafficVolume: 78, commercialScore: 85, evScore: 38, hasExistingStation: true, stationType: 'level1', routeCoverage: 28 },
+
+  // ── JOS ────────────────────────────────────────────────────────────────────
+  { name: 'Rayfield', city: 'Jos', state: 'Plateau', latitude: 9.8808, longitude: 8.8583, populationDensity: 55, trafficVolume: 58, commercialScore: 65, evScore: 30, hasExistingStation: false, routeCoverage: 12, nearbyPOIs: ['Estates', 'Hotels'] },
+  { name: 'Jos CBD', city: 'Jos', state: 'Plateau', latitude: 9.9167, longitude: 8.8833, populationDensity: 68, trafficVolume: 72, commercialScore: 80, evScore: 32, hasExistingStation: false, routeCoverage: 18, nearbyPOIs: ['Markets', 'Banks'] },
+  { name: 'Tudun Wada', city: 'Jos', state: 'Plateau', latitude: 9.9300, longitude: 8.8900, populationDensity: 78, trafficVolume: 65, commercialScore: 60, evScore: 25, hasExistingStation: false, routeCoverage: 8 },
+
+  // ── MAIDUGURI ──────────────────────────────────────────────────────────────
+  { name: 'Maiduguri CBD', city: 'Maiduguri', state: 'Borno', latitude: 11.8311, longitude: 13.1509, populationDensity: 70, trafficVolume: 68, commercialScore: 72, evScore: 18, hasExistingStation: false, routeCoverage: 10, nearbyPOIs: ['Market', 'Government Offices'] },
+  { name: 'GRA Maiduguri', city: 'Maiduguri', state: 'Borno', latitude: 11.8450, longitude: 13.1600, populationDensity: 48, trafficVolume: 55, commercialScore: 60, evScore: 20, hasExistingStation: false, routeCoverage: 8 },
+  { name: 'Customs Road', city: 'Maiduguri', state: 'Borno', latitude: 11.8200, longitude: 13.1400, populationDensity: 62, trafficVolume: 60, commercialScore: 65, evScore: 15, hasExistingStation: false, routeCoverage: 5 },
+
+  // ── ABEOKUTA ───────────────────────────────────────────────────────────────
+  { name: 'Kuto', city: 'Abeokuta', state: 'Ogun', latitude: 7.1557, longitude: 3.3451, populationDensity: 72, trafficVolume: 70, commercialScore: 75, evScore: 32, hasExistingStation: false, routeCoverage: 14, nearbyPOIs: ['Market', 'Bus Terminal'] },
+  { name: 'Sapon', city: 'Abeokuta', state: 'Ogun', latitude: 7.1700, longitude: 3.3600, populationDensity: 78, trafficVolume: 65, commercialScore: 65, evScore: 28, hasExistingStation: false, routeCoverage: 10 },
+  { name: 'Lafenwa', city: 'Abeokuta', state: 'Ogun', latitude: 7.1400, longitude: 3.3200, populationDensity: 80, trafficVolume: 68, commercialScore: 62, evScore: 25, hasExistingStation: false, routeCoverage: 8 },
+  { name: 'Abeokuta CBD', city: 'Abeokuta', state: 'Ogun', latitude: 7.1608, longitude: 3.3476, populationDensity: 62, trafficVolume: 75, commercialScore: 82, evScore: 35, hasExistingStation: false, routeCoverage: 20 },
 ];
 
 async function seed() {
