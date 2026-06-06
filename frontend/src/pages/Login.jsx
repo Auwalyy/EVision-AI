@@ -15,8 +15,8 @@ export default function Login() {
     setLoading(true);
     setError('');
     try {
-      await login(form.email, form.password);
-      navigate('/');
+      const res = await login(form.email, form.password);
+      navigate(res.user?.role === 'admin' ? '/admin' : '/');
     } catch (err) {
       setError(err?.error || 'Login failed. Check your credentials.');
     } finally {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { User, Mail, Briefcase, Shield, CheckCircle } from 'lucide-react';
+import { User, Mail, Briefcase, Shield, CheckCircle, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import api from '../utils/api';
 
@@ -20,20 +20,23 @@ const roleBadge = {
 };
 
 export default function Profile() {
-  const { user, logout } = useAuth();
+  const { user, logout, updateUser } = useAuth();
   const [form, setForm] = useState({ fullname: user?.fullname || '', role: user?.role || 'investor' });
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [saveError, setSaveError] = useState('');
 
   const handle = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setSaveError('');
     try {
-      await api.put('/auth/profile', form);
+      const res = await api.put('/auth/profile', form);
+      updateUser({ fullname: res.data.fullname, role: res.data.role });
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
-    } catch {
-      // silently fail on demo
+    } catch (err) {
+      setSaveError(err?.error || 'Update failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -61,6 +64,13 @@ export default function Profile() {
       {/* Edit Form */}
       <div className="card">
         <h3 className="text-white font-semibold mb-4">Edit Profile</h3>
+
+        {saveError && (
+          <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-lg p-3 mb-4">
+            <AlertCircle size={16} className="text-red-400 shrink-0" />
+            <p className="text-red-400 text-sm">{saveError}</p>
+          </div>
+        )}
 
         {saved && (
           <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-lg p-3 mb-4">

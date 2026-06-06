@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config({ path: require('path').join(__dirname, '../.env') });
 const mongoose = require('mongoose');
 const Location = require('../models/Location');
 const Recommendation = require('../models/Recommendation');
@@ -109,10 +109,8 @@ async function seed() {
     const createdLocations = await Location.insertMany(locations);
     console.log(`Inserted ${createdLocations.length} locations`);
 
-    // Generate recommendations for non-existing-station locations
-    const toRecommend = createdLocations.filter((l) => !l.hasExistingStation);
-
-    const recommendations = toRecommend.map((loc) => ({
+    // Generate recommendations for ALL locations (existing stations included)
+    const recommendations = createdLocations.map((loc) => ({
       locationId: loc._id,
       ...scoreLocation(loc),
     }));

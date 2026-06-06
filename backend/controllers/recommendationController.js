@@ -21,24 +21,24 @@ exports.getRecommendations = async (req, res, next) => {
 
 exports.generateRecommendations = async (req, res, next) => {
   try {
-    const locations = await Location.find({ hasExistingStation: false });
+    const locations = await Location.find();
     if (!locations.length) {
-      return res.status(400).json({ error: 'No locations found to analyze' });
+      return res.status(400).json({ error: 'No locations found. Run the location seed first.' });
     }
 
-    // Remove old recommendations
+    // Score all locations — existing stations get recommendations too (for operator dashboard)
     await Recommendation.deleteMany({});
 
-    const recommendations = locations.map((loc) => {
-      const scores = scoreLocation(loc);
-      return { locationId: loc._id, ...scores };
-    });
+    const recommendations = locations.map((loc) => ({
+      locationId: loc._id,
+      ...scoreLocation(loc),
+    }));
 
     const created = await Recommendation.insertMany(recommendations);
 
     res.status(201).json({
       success: true,
-      message: `Generated ${created.length} recommendations`,
+      message: `Generated ${created.length} recommendations across ${locations.length} locations`,
       count: created.length,
     });
   } catch (err) {

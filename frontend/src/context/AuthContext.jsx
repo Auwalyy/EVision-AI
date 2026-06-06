@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import api from '../utils/api';
 
 const AuthContext = createContext(null);
@@ -8,6 +8,16 @@ export function AuthProvider({ children }) {
     try { return JSON.parse(localStorage.getItem('ev_user')); } catch { return null; }
   });
 
+  // Validate stored token on mount — log out if expired
+  useEffect(() => {
+    const token = localStorage.getItem('ev_token');
+    if (!token) return;
+    api.get('/auth/profile').catch(() => {
+      localStorage.removeItem('ev_token');
+      localStorage.removeItem('ev_user');
+      setUser(null);
+    });
+  }, []);
   const login = useCallback(async (email, password) => {
     const res = await api.post('/auth/login', { email, password });
     localStorage.setItem('ev_token', res.token);
@@ -24,6 +34,14 @@ export function AuthProvider({ children }) {
     return res;
   }, []);
 
+  const updateUser = useCallback((updates) => {
+    setUser((prev) => {
+      const updated = { ...prev, ...updates };
+      localStorage.setItem('ev_user', JSON.stringify(updated));
+      return updated;
+    });
+  }, []);
+
   const logout = useCallback(() => {
     localStorage.removeItem('ev_token');
     localStorage.removeItem('ev_user');
@@ -31,7 +49,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
+    <AuthContext.Provider value={{ user, login, register, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -31,6 +31,9 @@ export default function InsightCard({ insight }) {
       <div className={`flex items-center gap-1.5 mt-3 pt-3 border-t border-ev-dark-border text-xs ${riskColor[insight.riskLevel]}`}>
         <RiskIcon size={13} />
         <span>{insight.riskLevel} Risk</span>
+        {insight.priority && (
+          <span className="ml-auto text-ev-gray/60">{insight.priority} Priority</span>
+        )}
       </div>
     </div>
   );

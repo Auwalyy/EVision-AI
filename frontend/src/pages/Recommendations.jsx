@@ -172,7 +172,13 @@ export default function Recommendations() {
                 }`}>
                   {rec.riskLevel} Risk
                 </span>
-                <span className="text-ev-gray/50 text-xs">Route Gap: {rec.routeGapScore}</span>
+                <span className={`text-xs px-2 py-0.5 rounded-full border font-medium ${
+                  rec.roiCategory === 'High Potential' ? 'text-green-400 border-green-500/30 bg-green-500/10'
+                  : rec.roiCategory === 'Medium Potential' ? 'text-amber-400 border-amber-500/30 bg-amber-500/10'
+                  : 'text-ev-gray border-ev-dark-border bg-ev-dark'
+                }`}>
+                  {rec.roiCategory || 'Low Potential'}
+                </span>
               </div>
             </div>
           );

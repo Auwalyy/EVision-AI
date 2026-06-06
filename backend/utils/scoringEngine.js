@@ -10,7 +10,7 @@ const WEIGHTS = {
   evScore: 0.1,
 };
 
-const CHARGER_COST_USD = 35000; // per DC fast charger
+const CHARGER_COST_USD = 35000;
 const AVG_REVENUE_PER_CHARGER_MONTHLY = 1200;
 
 function calcDemandScore(loc) {
@@ -38,7 +38,7 @@ function calcChargersNeeded(demandScore) {
 function calcEstimatedROI(chargersNeeded, demandScore) {
   const monthlyRevenue = chargersNeeded * AVG_REVENUE_PER_CHARGER_MONTHLY * (demandScore / 100);
   const totalCost = chargersNeeded * CHARGER_COST_USD;
-  return Math.round((monthlyRevenue * 12) / totalCost * 100); // annual ROI %
+  return Math.round((monthlyRevenue * 12) / totalCost * 100);
 }
 
 function calcPaybackPeriod(chargersNeeded, demandScore) {
@@ -60,8 +60,13 @@ function getRiskLevel(loc) {
   return 'Low';
 }
 
+function getRoiCategory(estimatedROI) {
+  if (estimatedROI >= 25) return 'High Potential';
+  if (estimatedROI >= 15) return 'Medium Potential';
+  return 'Low Potential';
+}
+
 function calcRouteGapScore(loc) {
-  // Score how underserved a location is for EV travel routes
   const coverageGap = 100 - (loc.routeCoverage || 0);
   return Math.round(coverageGap * 0.5 + loc.trafficVolume * 0.3 + loc.populationDensity * 0.2);
 }
@@ -74,9 +79,7 @@ function generateAIInsight(loc, demandScore, priority) {
   if (loc.evScore >= 60) factors.push('strong EV adoption trends');
   if (loc.routeCoverage < 30) factors.push('significant route coverage gap');
 
-  const factorStr = factors.length
-    ? factors.join(', ')
-    : 'moderate urban indicators';
+  const factorStr = factors.length ? factors.join(', ') : 'moderate urban indicators';
 
   return `${loc.name} (${loc.city}) shows ${priority.toLowerCase()} charging demand (score: ${demandScore}) driven by ${factorStr}. ${
     priority === 'Critical' || priority === 'High'
@@ -97,8 +100,11 @@ function scoreLocation(loc) {
   const routeGapScore = calcRouteGapScore(loc);
   const paybackPeriodMonths = calcPaybackPeriod(chargersNeeded, demandScore);
   const aiInsight = generateAIInsight(loc, demandScore, priority);
+  const demandForecast = Math.min(100, Math.round(demandScore * 1.18));
+  const roiCategory = getRoiCategory(estimatedROI);
 
   return {
+    // Core scores
     demandScore,
     investmentScore,
     priority,
@@ -110,6 +116,11 @@ function scoreLocation(loc) {
     riskLevel,
     paybackPeriodMonths,
     aiInsight,
+    // Spec-required field names
+    demandForecast,
+    utilizationEstimate: estimatedUtilization,
+    roiCategory,
+    recommendationReason: aiInsight,
   };
 }
 

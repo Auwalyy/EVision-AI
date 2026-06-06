@@ -6,8 +6,21 @@ import { useState } from 'react';
 const titles = {
   '/': 'Dashboard',
   '/map': 'Interactive Map',
+  '/recommendations': 'AI Recommendations',
   '/insights': 'AI Insights',
-  '/admin': 'Admin Portal',
+  '/analytics': 'Analytics',
+  '/profile': 'My Profile',
+  '/planning': 'National Planning',
+  '/investment': 'Investment Hub',
+  '/stations': 'Station Manager',
+  '/cityplanning': 'City Planning',
+  // admin paths
+  '/admin': 'Admin Overview',
+  '/admin/data': 'Data Management',
+  '/admin/users': 'User Management',
+  '/admin/engine': 'AI Engine Control',
+  '/admin/system': 'System Health',
+  '/admin/profile': 'My Profile',
 };
 
 export default function Header() {
@@ -20,10 +33,12 @@ export default function Header() {
     setMsg('');
     try {
       const res = await generateRecommendations();
-      setMsg(res.message);
-      setTimeout(() => setMsg(''), 3000);
-    } catch {
-      setMsg('Refresh failed');
+      setMsg(res.message || 'Recommendations updated');
+      setTimeout(() => setMsg(''), 4000);
+    } catch (err) {
+      const detail = err?.error || err?.message || 'Refresh failed';
+      setMsg(detail);
+      setTimeout(() => setMsg(''), 4000);
     } finally {
       setRefreshing(false);
     }

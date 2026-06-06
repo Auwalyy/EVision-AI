@@ -4,6 +4,15 @@ const User = require('../models/User');
 const sign = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET || 'evision_jwt_secret_2025', { expiresIn: '7d' });
 
+exports.getUsers = async (req, res, next) => {
+  try {
+    const users = await User.find().select('-password').sort({ createdAt: -1 });
+    res.json({ success: true, count: users.length, data: users });
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.register = async (req, res, next) => {
   try {
     const { fullname, email, password, role } = req.body;
