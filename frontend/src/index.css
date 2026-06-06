@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-ev-dark text-white font-sans;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-ev-dark;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-ev-dark-border rounded-full;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-ev-dark-card border border-ev-dark-border rounded-xl p-5;
+  }
+  .btn-primary {
+    @apply bg-ev-blue hover:bg-ev-blue-dark text-white font-semibold px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2;
+  }
+  .btn-secondary {
+    @apply bg-ev-dark-border hover:bg-slate-600 text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2;
+  }
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .badge-critical {
+    @apply badge bg-red-500/20 text-red-400 border border-red-500/30;
+  }
+  .badge-high {
+    @apply badge bg-orange-500/20 text-orange-400 border border-orange-500/30;
+  }
+  .badge-medium {
+    @apply badge bg-yellow-500/20 text-yellow-400 border border-yellow-500/30;
+  }
+  .badge-low {
+    @apply badge bg-green-500/20 text-green-400 border border-green-500/30;
+  }
+}
+
+/* Leaflet overrides */
+.leaflet-container {
+  background: #0f172a !important;
+  font-family: Inter, sans-serif;
+}
+.leaflet-popup-content-wrapper {
+  background: #1e293b;
+  color: white;
+  border: 1px solid #334155;
+  border-radius: 12px;
+}
+.leaflet-popup-tip {
+  background: #1e293b;
+}
