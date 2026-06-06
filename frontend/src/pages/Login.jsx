@@ -96,7 +96,7 @@ export default function Login() {
         </div>
 
         <p className="text-ev-gray/40 text-xs text-center mt-6">
-          Powered by Arthurite Integrated · ONE WITH AI Hackathon 2025
+          Powered by Arthurite Integrated · ONE WITH AI Hackathon 2026
         </p>
       </div>
     </div>
